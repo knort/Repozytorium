@@ -1,0 +1,36 @@
+<div class="col-md-8 offset-md-2">
+    <button *ngIf="!showCreateInputs" class="btn btn-add btn-primary" (click)="createInputsToggle()">{{'AddProduct' | translate: param}}</button>
+  <div *ngIf="showCreateInputs" class="row">
+    <label class="col-md-3">{{'Name' | translate: param}}</label>
+    <label class="col-md-3">{{'Description' | translate: param}}</label>
+    <label class="col-md-2">{{'Price' | translate: param}}</label>
+    <label class="col-md-2">{{'Save' | translate: param}}</label>
+    <label class="col-md-2">{{'Cancel' | translate: param}}</label>
+    <input type="text" [formControl]="name" class="form-control col-md-3">
+    <input type="text" [formControl]="description" class="form-control col-md-3">
+    <input type="number" [formControl]="price" class="form-control col-md-2">
+    <button class="col-md-2 btn btn-primary" (click)="create()">{{'Save' | translate: param}}</button>
+    <button class="col-md-2 btn btn-danger" (click)="cancelCreate()">{{'Cancel' | translate: param}}</button>
+  </div>
+  <table class="table table-striped col-md-12">
+    <tr>
+      <th>{{'Name' | translate: param}}</th>
+      <th>{{'Description' | translate: param}}</th>
+      <th>{{'Price' | translate: param}}</th>
+      <th>{{'Edit' | translate: param}}</th>
+      <th>{{'Delete' | translate: param}}</th>
+    </tr>
+    <tr *ngFor="let food of foods; let i=index;">
+      <td *ngIf="!startEditRow[i]">{{food.name}}</td>
+      <td *ngIf="startEditRow[i]"><input type="text" [formControl]="name" class="form-control"></td>
+      <td *ngIf="!startEditRow[i]">{{food.description}}</td>
+      <td *ngIf="startEditRow[i]"><input type="text" [formControl]="description" class="form-control"></td>
+      <td *ngIf="!startEditRow[i]">{{food.price}}</td>
+      <td *ngIf="startEditRow[i]"><input type="number" [formControl]="price" class="form-control"></td>
+      <td *ngIf="!startEditRow[i]"><button class="btn btn-primary" (click)="editRow(i, food.foodId)">{{'Edit' | translate: param}}</button></td>
+      <td *ngIf="startEditRow[i]"><button class="btn btn-primary" (click)="save(i)">{{'Save' | translate: param}}</button></td>
+      <td *ngIf="!startEditRow[i]"><button class="btn btn-danger" (click)="delete(food.foodId)">{{'Delete' | translate: param}}</button></td>
+      <td *ngIf="startEditRow[i]"><button class="btn btn-danger" (click)="cancel(i)">{{'Cancel' | translate: param}}</button></td>
+    </tr>
+  </table>
+</div>

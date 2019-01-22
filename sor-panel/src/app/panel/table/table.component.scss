@@ -1,0 +1,31 @@
+.table{
+    height:50px;
+    background-color: #d4d1d1;
+    border-radius:5px;
+    text-align: center;
+    h5{
+        margin-top:3%;
+        color:#505050;
+    }
+    &:hover{
+        background-color: #dbdbdb;
+    }
+    
+}
+h2{
+    text-align: center;
+    margin-right:7%;
+    margin-bottom:2%;
+}
+.new{
+    &:hover{
+        cursor: pointer;
+    }
+}
+.btn{
+    margin-top:5px;
+    margin-right:5px;
+}
+.rezervations{
+    margin-top:20px;
+}

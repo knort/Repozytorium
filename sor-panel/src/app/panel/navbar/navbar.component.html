@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">System obsługi restauracji</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/panel/']" [ngClass]="{'active' : highlight === constant.dashboard}">{{'Dashboard' | translate: param}}<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['reservation']" [ngClass]="{'active' : highlight === constant.reservation}">{{'Reservations' | translate: param}}</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item">
+        <a class="nav-link" [routerLink]="['table']" [ngClass]="{'active' : highlight === constant.table}">{{'Tables' | translate: param}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['menu']" [ngClass]="{'active' : highlight === constant.menu}">{{'Menu' | translate: param}}</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item">
+        <a class="nav-link" [routerLink]="['food']" [ngClass]="{'active' : highlight === constant.food}">{{'Food' | translate: param}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logOut()">{{'Logout' | translate: param}}</a>
+      </li>
+    </ul>
+  </div>
+</nav>

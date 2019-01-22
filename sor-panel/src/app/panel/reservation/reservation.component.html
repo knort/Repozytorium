@@ -1,0 +1,92 @@
+<div *ngIf="isAdmin">
+  <button *ngIf="!manage && !inputs" (click)="changeToManage()" class="btn btn-manage btn-manage-manage btn-primary">{{'Manage'
+    |
+    translate: param}}</button>
+  <button *ngIf="manage && !inputs" (click)="changeToManage()" class="btn btn-manage btn-primary">{{'Back' | translate:
+    param}}</button>
+</div>
+<div *ngIf="!inputs && !manage" class="row">
+  <div class="col-md-10 offset-md-1">
+    <h4>{{'AllowedTables' | translate: param}}</h4>
+  </div>
+  <div class="table col-md-4 offset-md-1" (click)="startReservation(table)" *ngFor="let table of tables">
+    <h5>{{'TableNumber' | translate: param}} {{table.number}}</h5>
+  </div>
+</div>
+<div *ngIf="inputs" class="row">
+  <button *ngIf="inputs" (click)="toggleInputs()" class="btn btn-manage btn-primary">{{'Back' | translate:
+    param}}</button>
+  <div class="col-md-6 offset-md-3">
+    <h2>{{'ReservTable' | translate: param}}</h2>
+  </div>
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="reservationGroup" (submit)="createReservation()">
+      <label>{{'SelectDay' | translate: param}}</label>
+      <input (change)="datePicked()" type="date" class="form-control" formControlName="date">
+      <label>{{'Start' | translate: param}}</label>
+      <input type="time" class="form-control" formControlName="start">
+      <label>{{'End' | translate: param}}</label>
+      <input type="time" class="form-control" formControlName="end">
+      <input type="submit" class="btn btn-primary" value="{{'ReservTable' | translate: param}}">
+    </form>
+  </div>
+  <div class="col-md-6 offset-md-3">
+    <div *ngIf="reservations !== null">
+      <h2>{{'ReservationsTable' | translate: param}}:</h2>
+      <div class="row">
+        <div class="col-md-2">
+          {{'Day' | translate: param}}</div>
+        <div class="col-md-2">
+          {{'Start' | translate: param}}
+        </div>
+        <div class="col-md-2">
+          {{'End' | translate: param}}
+        </div>
+      </div>
+      <div class="row" *ngFor="let i of reservations">
+        <div class="col-md-2">{{i.date | date: 'd/M/yyyy'}}</div>
+        <div class="col-md-2">
+          {{i.start | date:'HH:mm'}}
+        </div>
+        <div class="col-md-2">
+          {{i.end | date:'HH:mm'}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="reservations === null">
+      <h2>{{'NoReservations' | translate: param}}</h2>
+    </div>
+  </div>
+</div>
+<div *ngIf="manage">
+  <table class="table table-striped">
+    <tr>
+      <th>{{'Date' | translate: param}}</th>
+      <th>{{'Start' | translate: param}}</th>
+      <th>{{'End' | translate: param}}</th>
+      <th>{{'Reserver' | translate: param}}</th>
+      <th>{{'Table' | translate: param}}</th>
+      <th>{{'Delete' | translate: param}}</th>
+    </tr>
+    <tr *ngFor="let reservation of allReservations">
+      <td>{{reservation.date | date:'d/M/yyyy'}}</td>
+      <td>{{reservation.start | date:'HH:mm'}}</td>
+      <td>{{reservation.end | date:'HH:mm'}}</td>
+      <td>{{reservation.user.email}}</td>
+      <td>{{reservation.table.number}}</td>
+      <td><button class="btn btn-danger" (click)="deleteReservation(reservation.reservationId)">{{'Delete' | translate:
+          param}}</button></td>
+    </tr>
+  </table>
+</div>
+<div class="row">
+  <div *ngIf="!inputs && userReservations !== undefined && !manage" class="col-md-10 offset-md-1 reservations">
+    <h2>{{'YourReservations' | translate: param}}</h2>
+    <div class="reservation" *ngFor="let res of userReservations">
+      {{res?.date | date:'yy/M/d'}} {{'ReservationToTableNumber' | translate: param}}: {{res?.table?.number}} {{'From'
+      |
+      translate: param}}: {{res?.start | date:'HH:MM'}}
+      {{'To' | translate: param}}: {{res?.end | date:'HH:mm'}}
+    </div>
+  </div>
+</div>

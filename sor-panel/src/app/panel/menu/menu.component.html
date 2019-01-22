@@ -1,0 +1,34 @@
+<ng-container *ngIf="!inputsToggle">
+  <div *ngIf="isAdmin" class="row">
+    <button class="btn btn-primary" (click)="showInputs()">{{'AddToMenu' | translate: param}}</button>
+  </div>
+  <div *ngIf="menu!== undefined" class="row">
+    <div class="col-md-2 header">{{'Name' | translate: param}}</div>
+    <div class="col-md-6 header">{{'Description' | translate: param}}</div>
+    <div class="col-md-2 header">{{'Price' | translate: param}}</div>
+    <div *ngIf="isAdmin" class="col-md-2 header">{{'Delete' | translate: param}}</div>
+  </div>
+  <div class="row tablerow" *ngFor="let food of menu?.menuFoods">
+    <div class="col-md-2 content">{{food.food.name}}</div>
+    <div class="col-md-6 content">{{food.food.description}}</div>
+    <div class="col-md-2 content">{{food.food.price}}</div>
+    <div *ngIf="isAdmin" class="col-md-2 header content"><button class="btn btn-danger" (click)="deleteProduct(food.menuFoodId)">{{'Delete' | translate: param}}</button></div>
+  </div>
+</ng-container>
+<div *ngIf="inputsToggle" class="row">
+  <div class="col-md-8 offset-md-2">
+    <h3>{{'SelectProductToAdd' | translate: param}}</h3>
+    <form [formGroup]="menuFormGroup" (submit)="addFood()">
+      <select class="form-control" formControlName="food">
+        <ng-container *ngIf="displayNoProductToAdd">
+          <option class="form-control" *ngFor="let food of foods" [ngValue]="food">{{food.name}}</option>
+        </ng-container>
+        <ng-container *ngIf="!displayNoProductToAdd">
+          <option>{{'AllProductsAdded' | translate: param}}</option>
+        </ng-container>
+      </select>
+      <button class="btn btn-primary btn-add" (click)="showInputs();$event.preventDefault()">{{'Back' | translate: param}}</button>
+      <input type="submit" [disabled]="!displayNoProductToAdd" class="btn btn-primary btn-add" value="{{'Add' | translate: param}}">
+    </form>
+  </div>
+</div>

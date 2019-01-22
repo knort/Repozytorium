@@ -1,0 +1,19 @@
+.header{
+    text-align: center;
+    font-weight: bold;
+}
+.content{
+    text-align: center;
+    height:50px;
+    line-height:300%;
+    background-color:rgb(226, 226, 226);
+    border-bottom:1px solid white;
+}
+.btn-add{
+    margin-left:30px;
+    width:330px;
+    margin-top:20px;
+    &:first{
+        margin-left:0;
+    }
+}

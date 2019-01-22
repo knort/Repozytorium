@@ -1,0 +1,13 @@
+<div class="header">
+  <h2>System obsługi restauracji</h2>
+</div>
+<div class="login-form col-md-4 offset-md-4">
+  <form [formGroup]="loginFormGroup" (submit)="login()">
+    <label>{{'Email' | translate: param}}</label>
+    <input type="text" class="form-control" formControlName="email">
+    <label>{{'Password' | translate: param}}</label>
+    <input type="password" class="form-control" formControlName="password">
+    <button class="btn btn-success" type="submit">{{'LogIn' | translate: param}}</button>
+    <p>{{'DontHaveAccount' | translate: param}} <a [routerLink]='["register"]'>{{'ClickToRegister' | translate: param}}</a></p>
+  </form>
+</div>

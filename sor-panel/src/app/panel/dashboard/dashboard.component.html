@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-4">
+      <div>{{'LogedAs' | translate: param}}:{{currentUser?.email}}</div>
+      <div>{{currentUser?.role}}</div>
+      <div *ngIf="today !== undefined">{{'TodayIs' | translate: param}} {{today.currentDateTime | date:'d/M/yyyy HH:MM'}}</div>
+    </div>
+    <div class="col-md-4"></div>
+  <div class="col-md-2">{{'ChoseLanguage' | translate: param}}</div>
+  <div class="col-md-2">
+    {{'ChoseTheme' | translate: param}}
+  </div>
+  <div class="col-md-8 language-select"></div>
+  <div class="col-md-2">
+    <select class="form-control language-select" (change)="changed()" [formControl]="language">
+      <option value="pl">Polski</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <input type="checkbox" class="form-control" [formControl]="darkTheme" (change)="changedTheme()">
+  </div>
+  <div class="col-md-4 reservation-box">
+    <p>{{'LastReservation' | translate: param}}</p>
+    <p>{{'Day' | translate: param}}: {{lastReservation?.date | date:'yyyy/M/dd'}} {{'From' | translate: param}}
+      {{lastReservation?.start | date:'HH:MM'}} {{'To' | translate: param}} {{lastReservation?.end | date:'HH:MM'}}
+      {{'TableNumber' | translate: param}} {{lastReservation?.table?.number}}</p>
+  </div>
+</div>

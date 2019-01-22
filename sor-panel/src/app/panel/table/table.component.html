@@ -1,0 +1,40 @@
+<h2>{{'Tables' | translate: param}}</h2>
+<div *ngIf="!addingTable && !editingTable" class="row">
+  <div class="table col-md-4 offset-md-1" (click)="startEditing(table.tableId)" *ngFor="let table of tables">
+    <h5>{{'TableNumber' | translate: param}} {{table.number}}</h5>
+  </div>
+  <div (click)="toggleAddingTable()" class="table new col-md-4 offset-md-1">
+    <h5>{{'AddNewTable' | translate: param}}</h5>
+  </div>
+</div>
+<div *ngIf="addingTable" class="row">
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="tableFormGroup" (submit)="addTable()">
+      <input class="form-control" type="text" placeholder="{{'Number' | translate: param}}" formControlName="number">
+      <input type="submit" class="btn btn-primary" value="{{'Add' | translate: param}}">
+      <button class="btn btn-primary" (click)="cancel();$event.preventDefault();">{{'Cancel' | translate: param}}</button>
+    </form>
+  </div>
+</div>
+<div *ngIf="editingTable" class="row">
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="tableFormGroup" (submit)="modifyTable()">
+      <input class="form-control" type="text" placeholder="numer" formControlName="number">
+      <input type="submit" class="btn btn-primary" value="{{'Edit' | translate: param}}">
+      <button class="btn btn-primary" (click)="cancel('edit');$event.preventDefault();">{{'Cancel' | translate: param}}</button>
+      <button class="btn btn-primary" (click)="deleteTable();$event.preventDefault();">{{'Delete' | translate: param}}</button>
+    </form>
+  </div>
+</div>
+<div class="row rezervations" *ngIf="selectedTable !== undefined">
+  <h3 class="col-md-3">{{'Reservations' | translate: param}}</h3>
+  <h3 class="col-md-3">{{'Start' | translate: param}}</h3>
+  <h3 class="col-md-3">{{'End' | translate: param}}</h3>
+  <h3 class="col-md-3">{{'Reserver' | translate: param}}</h3>
+  <ng-container *ngFor="let r of selectedTable.reservation">
+    <div class="col-md-3">{{r.date | date:'d/MM/yyyy'}}</div>
+    <div class="col-md-3">{{r.start | date:'hh:mm'}}</div>
+    <div class="col-md-3">{{r.end | date:'hh:mm'}}</div>
+    <div class="col-md-3">{{r.user.email}}</div>
+  </ng-container>
+</div>
